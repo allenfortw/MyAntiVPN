@@ -6,7 +6,7 @@ MyAntiVPN 是一款專為 Minecraft 伺服器打造的頂級安全防護插件�
 
 ### ❗重點資料
  - Spigot：[點擊前往異世界](https://www.spigotmc.org/resources/myantivpn-%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%BC%B7%E5%A4%A7%E7%9A%84-vpn-%E6%AA%A2%E6%B8%AC%E5%B7%A5%E5%85%B7-%E6%94%AF%E6%8F%B4%E5%A4%9A%E9%87%8D-api-%E6%95%B4%E5%90%88.125608/)
-
+ - Paper：[點擊前往異世界](https://hangar.papermc.io/Allen0524/MyAntiVPN)
 ### 🚀 特色功能
 
 - **超強檢測能力**
