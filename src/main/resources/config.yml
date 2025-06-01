@@ -1,0 +1,22 @@
+# MyAntiVPN Configuration
+
+# API Services Configuration
+Services:
+  # IP-API (Free, no key required)
+  IP-API:
+    Enabled: true
+
+  # ProxyCheck.io
+  ProxyCheck:
+    Enabled: false
+    key: "your_api_key_here"
+
+  # VPN API
+  VPNAPI:
+    Enabled: false
+    key: "your_api_key_here"
+
+  # IP Hub
+  IPHub:
+    Enabled: false
+    key: "your_api_key_here"

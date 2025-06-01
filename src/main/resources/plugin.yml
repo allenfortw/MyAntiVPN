@@ -1,0 +1,13 @@
+name: MyAntiVPN
+version: 1.0
+main: allenme.top.myantivpn.Core
+api-version: 1.13
+commands:
+  antivpn:
+    description: MyAntiVPN command
+    usage: /antivpn
+    permission: myantivpn.admin
+permissions:
+  myantivpn.admin:
+    description: Allows access to MyAntiVPN commands
+    default: op
