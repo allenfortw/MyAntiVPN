@@ -1,0 +1,39 @@
+# MyAntiVPN Messages Configuration
+# You can use color codes with & symbol
+# Example: &c for red, &a for green, &e for yellow, etc.
+
+messages:
+  # General messages
+  no-permission: "&cYou don't have permission to use this command."
+
+  # Command messages
+  help:
+    header: "&a=== MyAntiVPN Commands ==="
+    help-command: "&e/antivpn &f- Show this help message"
+    check-command: "&e/antivpn check <player_name> [services] &f- Force check a player for VPN/Proxy"
+    logs-command: "&e/antivpn logs [player_name] &f- View check logs"
+
+  # Check messages
+  check:
+    player-not-found: "&cPlayer not found or not online."
+    checking-player: "&eChecking player %player% for VPN/Proxy..."
+    result:
+      vpn-detected: "&cPlayer %player% is using a VPN/Proxy!"
+      detected-by: "&cDetected by: %service%"
+      reason: "&cReason: %reason%"
+      clean: "&aPlayer %player% is not using a VPN/Proxy."
+      service-used: "&aService(s) used: %service%"
+
+  # Logs messages
+  logs:
+    no-logs-player: "&eNo logs found for player %player%"
+    no-logs: "&eNo logs found"
+    logs-header: "&a=== Logs for %player% ==="
+    recent-logs-header: "&a=== Recent Logs ==="
+    log-entry: "&7%time% &f%ip% %status% &7[%service%] &f%reason%"
+    recent-log-entry: "&7%time% &e%player% %status% &7[%service%] &f%reason%"
+
+  # Status colors
+  status:
+    vpn: "&cVPN/Proxy"
+    clean: "&aClean"

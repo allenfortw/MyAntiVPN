@@ -12,9 +12,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
@@ -62,29 +60,36 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     }
 
     private void showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.GREEN + "=== MyAntiVPN Commands ===");
-        sender.sendMessage(ChatColor.YELLOW + "/antivpn" + ChatColor.WHITE + " - Show this help message");
-        sender.sendMessage(ChatColor.YELLOW + "/antivpn check <player_name> [services]" + ChatColor.WHITE + " - Force check a player for VPN/Proxy");
-        sender.sendMessage(ChatColor.YELLOW + "/antivpn logs [player_name]" + ChatColor.WHITE + " - View check logs");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.header"));
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.help-command"));
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.check-command"));
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.logs-command"));
     }
+
 
     private void checkPlayer(CommandSender sender, String playerName, String servicesArg) {
         Player target = Bukkit.getPlayerExact(playerName);
 
+        // 檢查玩家是否存在
         if (target == null) {
-            sender.sendMessage(ChatColor.RED + "Player not found or not online.");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.player-not-found"));
             return;
         }
 
         String ip = target.getAddress().getAddress().getHostAddress();
         List<String> services = new ArrayList<>();
 
+        // 處理指定的服務
         if (servicesArg != null && !servicesArg.isEmpty()) {
             services = Arrays.asList(servicesArg.split(","));
         }
 
-        sender.sendMessage(ChatColor.YELLOW + "Checking player " + playerName + " for VPN/Proxy...");
+        // 創建佔位符
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("player", playerName);
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.checking-player", placeholders));
 
+        // 根據是否指定服務來進行檢查
         if (services.isEmpty()) {
             plugin.getApiManager().checkIP(ip, playerName).thenAccept(result -> {
                 sendCheckResult(sender, playerName, result);
@@ -96,15 +101,21 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
     }
 
+
     private void sendCheckResult(CommandSender sender, String playerName, APIManager.VPNCheckResult result) {
         Bukkit.getScheduler().runTask(plugin, () -> {
+            Map<String, String> placeholders = new HashMap<>();
+            placeholders.put("player", playerName);
+            placeholders.put("service", result.getService());
+            placeholders.put("reason", result.getReason());
+
             if (result.isVPN()) {
-                sender.sendMessage(ChatColor.RED + "Player " + playerName + " is using a VPN/Proxy!");
-                sender.sendMessage(ChatColor.RED + "Detected by: " + result.getService());
-                sender.sendMessage(ChatColor.RED + "Reason: " + result.getReason());
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.result.vpn-detected", placeholders));
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.result.detected-by", placeholders));
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.result.reason", placeholders));
             } else {
-                sender.sendMessage(ChatColor.GREEN + "Player " + playerName + " is not using a VPN/Proxy.");
-                sender.sendMessage(ChatColor.GREEN + "Service(s) used: " + result.getService());
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.result.clean", placeholders));
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.check.result.service-used", placeholders));
             }
         });
     }

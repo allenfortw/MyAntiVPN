@@ -4,6 +4,7 @@ import allenme.top.myantivpn.commands.CommandManager;
 import allenme.top.myantivpn.listener.PlayerLoginListener;
 import allenme.top.myantivpn.apicheck.APIManager;
 import allenme.top.myantivpn.database.DatabaseManager;
+import allenme.top.myantivpn.utils.MessageManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ public class Core extends JavaPlugin {
     private APIManager apiManager;
     private DatabaseManager databaseManager;
     private FileConfiguration config;
+    private MessageManager messageManager;
 
     @Override
     public void onEnable() {
@@ -30,6 +32,7 @@ public class Core extends JavaPlugin {
 
         // Initialize API Manager
         apiManager = new APIManager(this);
+        this.messageManager = new MessageManager(this);
 
         // Register commands
         getCommand("antivpn").setExecutor(new CommandManager(this));
@@ -69,7 +72,9 @@ public class Core extends JavaPlugin {
     public APIManager getApiManager() {
         return apiManager;
     }
-
+    public MessageManager getMessageManager() {
+        return messageManager;
+    }
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
     }
