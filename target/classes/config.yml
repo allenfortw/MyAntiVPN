@@ -1,5 +1,18 @@
 # MyAntiVPN Configuration
 
+# VPN/Proxy Detection Settings
+Detection:
+  # Check for VPN/Proxy on server join
+  CheckOnJoin: true
+
+  # Command execution on VPN/Proxy detection
+  Command:
+    # Enable/disable command execution
+    Enabled: true
+    # Command to execute when VPN/Proxy is detected
+    # Use %player% as placeholder for the player name
+    Execute: "kick %player% VPN/Proxy usage is not allowed!"
+
 # API Services Configuration
 Services:
   # IP-API (Free, no key required)

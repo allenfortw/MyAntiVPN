@@ -6,6 +6,7 @@ import allenme.top.myantivpn.apicheck.APIManager;
 import allenme.top.myantivpn.database.DatabaseManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 
 import java.io.File;
 
@@ -71,5 +72,19 @@ public class Core extends JavaPlugin {
 
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public void executeVPNDetectedCommand(String playerName) {
+        if (getConfig().getBoolean("Detection.Command.Enabled", true)) {
+            String command = getConfig().getString("Detection.Command.Execute", "kick %player% VPN/Proxy usage is not allowed!");
+            if (command != null && !command.isEmpty()) {
+                command = command.replace("%player%", playerName);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+        }
+    }
+
+    public boolean shouldCheckOnJoin() {
+        return getConfig().getBoolean("Detection.CheckOnJoin", true);
     }
 }
