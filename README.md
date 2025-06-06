@@ -1,157 +1,157 @@
-# 🛡️ MyAntiVPN - 史上最強大的 Minecraft 防護插件
+# 🛡️ MyAntiVPN - The Ultimate Minecraft Protection Plugin
 
-## 🌟 革命性的多重 VPN 檢測系統
+## 🌟 Revolutionary Multi-VPN Detection System
 
-MyAntiVPN 是一款專為 Minecraft 伺服器打造的頂級安全防護插件，採用革命性的多重 API 檢測系統，能夠有效防止玩家使用 VPN、代理伺服器、Tor 網路等工具繞過您的伺服器安全措施。
+MyAntiVPN is a cutting-edge security plugin designed for Minecraft servers, featuring a revolutionary multi-API detection system that effectively prevents players from bypassing your server's security measures using VPNs, proxies, or Tor networks.
 
-### ❗重點資料
- - Spigot：[點擊前往異世界](https://www.spigotmc.org/resources/myantivpn-%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%BC%B7%E5%A4%A7%E7%9A%84-vpn-%E6%AA%A2%E6%B8%AC%E5%B7%A5%E5%85%B7-%E6%94%AF%E6%8F%B4%E5%A4%9A%E9%87%8D-api-%E6%95%B4%E5%90%88.125608/)
- - Paper：[點擊前往異世界](https://hangar.papermc.io/Allen0524/MyAntiVPN)
- - Polymart：[點擊前往異世界](https://polymart.org/product/7899/myantivpn)
+### ❗ Quick Links
+ - Spigot: [Visit Page](https://www.spigotmc.org/resources/myantivpn-ultimate-vpn-detection-with-multi-api-integration.125608/)
+ - Paper: [Visit Page](https://hangar.papermc.io/Allen0524/MyAntiVPN)
+ - Polymart: [Visit Page](https://polymart.org/product/7899/myantivpn)
 
-### 🚀 特色功能
+### 🚀 Key Features
 
-- **超強檢測能力**
-  - 🔍 同時整合多個專業 VPN 檢測 API
-  - 🌐 支援 VPNAPI.io、ProxyCheck.io 等頂級服務
-  - 🎯 精準識別 VPN、代理、Tor 網路
-  - ⚡ 非同步檢測，不影響伺服器效能
-  - 📊 自動記錄所有檢測結果
+- **Superior Detection Capabilities**
+  - 🔍 Simultaneous integration with multiple professional VPN detection APIs
+  - 🌐 Support for premium services like VPNAPI.io and ProxyCheck.io
+  - 🎯 Precise identification of VPNs, proxies, and Tor networks
+  - ⚡ Asynchronous detection for zero server impact
+  - 📊 Automatic logging of all detection results
 
-- **智慧防護系統**
-  - 🛑 自動阻擋可疑連線
-  - 🎨 完全可自訂的踢出訊息
-  - 🔄 即時檢測玩家連線
-  - 🎮 支援自訂指令執行
-  - 🎯 精確到 ASN 組織級別的識別
+- **Intelligent Protection System**
+  - 🛑 Automatic blocking of suspicious connections
+  - 🎨 Fully customizable kick messages
+  - 🔄 Real-time player connection monitoring
+  - 🎮 Custom command execution support
+  - 🎯 ASN-level organization identification
 
-- **強大的管理功能**
-  - 📝 詳細的檢測日誌記錄
-  - 🔑 完整的權限管理系統
-  - ⚙️ 靈活的配置選項
-  - 💻 簡單易用的管理指令
-  - 🔄 實時更新檢測結果
+- **Powerful Management Features**
+  - 📝 Detailed detection logs
+  - 🔑 Comprehensive permission system
+  - ⚙️ Flexible configuration options
+  - 💻 User-friendly admin commands
+  - 🔄 Real-time detection updates
 
-### 💎 為什麼選擇 MyAntiVPN？
+### 💎 Why Choose MyAntiVPN?
 
-1. **業界最強檢測準確度**
-   - 採用多重 API 交叉驗證
-   - 深度整合多家頂級 VPN 檢測服務
-   - 智慧判斷演算法，降低誤判率
-   - 支援 ASN 組織識別，更精確定位問題來源
+1. **Industry-Leading Detection Accuracy**
+   - Cross-validation through multiple APIs
+   - Deep integration with top-tier VPN detection services
+   - Smart detection algorithms to minimize false positives
+   - ASN organization identification for precise threat sourcing
 
-2. **極致效能優化**
-   - 採用非同步處理技術
-   - 智慧快取機制
-   - 最佳化資料庫存取
-   - 零延遲的玩家體驗
+2. **Maximum Performance Optimization**
+   - Asynchronous processing technology
+   - Smart caching mechanism
+   - Optimized database operations
+   - Zero-latency player experience
 
-3. **完美的擴展性**
-   - 模組化設計
-   - 支援自訂 API 整合
-   - 靈活的配置系統
-   - 支援未來功能擴充
+3. **Perfect Scalability**
+   - Modular design
+   - Custom API integration support
+   - Flexible configuration system
+   - Future-proof expandability
 
-### 🎮 使用情境
+### 🎮 Use Cases
 
-1. **競技伺服器**
-   - 防止玩家使用 VPN 規避封禁
-   - 確保公平競爭環境
-   - 提供真實 IP 追蹤能力
+1. **Competitive Servers**
+   - Prevent ban evasion through VPNs
+   - Ensure fair play environment
+   - Enable genuine IP tracking
 
-2. **生存伺服器**
-   - 阻止惡意玩家使用代理伺服器
-   - 保護正常玩家的遊戲體驗
-   - 維護伺服器安全
+2. **Survival Servers**
+   - Block malicious proxy users
+   - Protect legitimate player experience
+   - Maintain server security
 
-3. **小遊戲伺服器**
-   - 防止玩家使用 VPN 開掛
-   - 確保遊戲平衡性
-   - 提供更好的遊戲體驗
+3. **Minigame Servers**
+   - Prevent VPN-based cheating
+   - Ensure game balance
+   - Enhance player experience
 
-### 🛠️ 技術特點
+### 🛠️ Technical Features
 
-- **先進的檢測技術**
-  - 多重 API 並行檢測
-  - 智慧故障轉移機制
-  - 自動重試機制
-  - 精確的風險評估系統
+- **Advanced Detection Technology**
+  - Parallel multi-API checks
+  - Smart failover mechanisms
+  - Automatic retry system
+  - Precise risk assessment
 
-- **強大的資料分析**
-  - 詳細的檢測日誌
-  - IP 信譽評分系統
-  - 風險等級分類
-  - 統計報表功能
+- **Powerful Data Analytics**
+  - Detailed detection logs
+  - IP reputation scoring
+  - Risk level classification
+  - Statistical reporting
 
-- **優秀的可擴展性**
-  - 模組化 API 系統
-  - 插件介面標準化
-  - 支援自訂檢測服務
-  - 靈活的配置選項
+- **Superior Extensibility**
+  - Modular API system
+  - Standardized plugin interfaces
+  - Custom detection service support
+  - Flexible configuration options
 
-### ⚙️ 系統要求
+### ⚙️ System Requirements
 
 - Minecraft 1.7+
-- Java 8 或更高版本
-- 穩定的網路連接
+- Java 8 or higher
+- Stable internet connection
 
-### 🎯 適用對象
+### 🎯 Target Audience
 
-- 大型 Minecraft 伺服器
-- 競技遊戲伺服器
-- 需要高安全性的伺服器
-- 重視玩家體驗的伺服器管理員
+- Large Minecraft networks
+- Competitive gaming servers
+- Security-focused servers
+- Quality-conscious server administrators
 
-### 🌟 效益分析
+### 🌟 Benefits Analysis
 
-1. **安全性提升**
-   - 降低 90% 以上的惡意連接
-   - 有效防止 VPN 繞過封禁
-   - 提供全方位的安全保護
+1. **Enhanced Security**
+   - 90%+ reduction in malicious connections
+   - Effective VPN ban evasion prevention
+   - Comprehensive security coverage
 
-2. **管理效率提升**
-   - 自動化的檢測流程
-   - 詳細的日誌記錄
-   - 簡化管理流程
+2. **Improved Management Efficiency**
+   - Automated detection workflows
+   - Detailed logging system
+   - Streamlined administration
 
-3. **玩家體驗優化**
-   - 更公平的遊戲環境
-   - 更少的惡意玩家
-   - 更好的遊戲體驗
+3. **Enhanced Player Experience**
+   - Fairer gaming environment
+   - Reduced malicious activity
+   - Better overall experience
 
-### 🎁 額外優勢
+### 🎁 Additional Benefits
 
-- 持續的更新支援
-- 完善的技術文件
-- 活躍的社群支援
-- 專業的技術團隊
+- Continuous updates
+- Comprehensive documentation
+- Active community support
+- Professional technical team
 
-### 🔧 安裝方式
+### 🔧 Installation
 
-1. 下載 MyAntiVPN.jar
-2. 放入 plugins 資料夾
-3. 重啟伺服器
-4. 編輯設定檔案
-5. 享受安全的遊戲環境！
+1. Download MyAntiVPN.jar
+2. Place in plugins folder
+3. Restart server
+4. Edit configuration
+5. Enjoy secure gaming!
 
-### 🌐 指令說明
+### 🌐 Commands
 
-基礎指令：
+Basic commands:
 ```
-/antivpn - 顯示插件指令幫助
-/antivpn check <玩家> - 檢查指定玩家
-/antivpn reload - 重新載入設定
-/antivpn status - 顯示插件狀態
+/antivpn - Show plugin help
+/antivpn check <player> - Check specific player
+/antivpn reload - Reload configuration
+/antivpn status - Show plugin status
 ```
 
-### 🎨 設定範例
+### 🎨 Configuration Example
 
 ```yaml
 Detection:
   CheckOnJoin: true
   Command:
     Enabled: true
-    Execute: "kick %player% 禁止使用 VPN 連接伺服器！"
+    Execute: "kick %player% VPN connections are not allowed!"
 
 APIs:
   VPNAPI:
@@ -162,59 +162,59 @@ APIs:
     APIKey: "YOUR_API_KEY"
 ```
 
-### 🎯 未來展望
+### 🎯 Future Plans
 
-1. **功能擴充**
-   - 更多 API 支援
-   - 更強大的檢測能力
-   - 更多自訂選項
+1. **Feature Expansion**
+   - Additional API support
+   - Enhanced detection capabilities
+   - More customization options
 
-2. **效能優化**
-   - 更快的檢測速度
-   - 更低的資源佔用
-   - 更好的擴展性
+2. **Performance Optimization**
+   - Faster detection speeds
+   - Lower resource usage
+   - Better scalability
 
-3. **使用者體驗**
-   - 更友善的介面
-   - 更詳細的統計
-   - 更多的自訂選項
+3. **User Experience**
+   - More intuitive interface
+   - Detailed statistics
+   - Extended customization options
 
-### 🌟 為什麼現在就需要 MyAntiVPN？
+### 🌟 Why You Need MyAntiVPN Now
 
-在現今的 Minecraft 伺服器環境中，安全性變得比以往更加重要。MyAntiVPN 不僅僅是一個簡單的 VPN 檢測工具，更是一個全方位的伺服器安全解決方案。通過使用 MyAntiVPN，您可以：
+In today's Minecraft server environment, security is more crucial than ever. MyAntiVPN isn't just a simple VPN detector - it's a comprehensive server security solution. With MyAntiVPN, you can:
 
-- 有效防止玩家使用 VPN 規避封禁
-- 提供更安全的遊戲環境
-- 提升伺服器管理效率
-- 改善玩家遊戲體驗
-- 建立更好的社群環境
+- Effectively prevent VPN-based ban evasion
+- Provide a more secure gaming environment
+- Improve server management efficiency
+- Enhance player experience
+- Build a better community
 
-立即安裝 MyAntiVPN，為您的伺服器提供最強大的安全防護！
+Install MyAntiVPN today for the ultimate server protection!
 
-## 📜 授權條款
+## 📜 License
 
-本專案採用 GNU General Public License v3.0 授權。
+This project is licensed under GNU General Public License v3.0.
 
-### 您可以：
-- ✅ 使用本軟體
-- ✅ 查看原始碼
-- ✅ 修改原始碼
-- ✅ 散布原始碼
-- ✅ Fork 專案並修改
+### You Can:
+- ✅ Use the software
+- ✅ View the source code
+- ✅ Modify the source code
+- ✅ Distribute the source code
+- ✅ Fork and modify the project
 
-### 您必須：
-- ⚠️ 標註原作者 (©2025 @allenfortw)
-- ⚠️ 使用相同的授權條款
-- ⚠️ 公開修改後的原始碼
-- ⚠️ 標明修改內容
+### You Must:
+- ⚠️ Credit the original author (©2025 @allenfortw)
+- ⚠️ Use the same license
+- ⚠️ Disclose source
+- ⚠️ State changes
 
-### 您不能：
-- ❌ 閉源使用
-- ❌ 修改授權條款
-- ❌ 未經授權的商業應用
+### You Cannot:
+- ❌ Use it closed source
+- ❌ Modify the license
+- ❌ Use commercially without authorization
 
-完整授權條款請見 [LICENSE](LICENSE) 文件。
+For complete license terms, see the [LICENSE](LICENSE) file.
 
-## 🌟 原創聲明
+## 🌟 Original Work Statement
 
-本專案由 [@allenfortw](https://github.com/allenfortw) 開發。如果您使用或修改本專案，請保留作者訊息。
+This project was developed by [@allenfortw](https://github.com/allenfortw). If you use or modify this project, please retain the author's information.
