@@ -8,10 +8,12 @@ messages:
 
   # Command messages
   help:
-    header: "&a=== MyAntiVPN Commands ==="
-    help-command: "&e/antivpn &f- Show this help message"
-    check-command: "&e/antivpn check <player_name> [services] &f- Force check a player for VPN/Proxy"
-    logs-command: "&e/antivpn logs [player_name] &f- View check logs"
+    header: "&6=== MyAntiVPN Commands ==="
+    help-command: "&e/antivpn help &f- Show this help menu"
+    check-command: "&e/antivpn check <player> [services] &f- Check a player's IP"
+    logs-command: "&e/antivpn logs [player] &f- Show logs"
+    services-command: "&e/antivpn services &f- Show all services status"
+    reload-command: "&e/antivpn reload &f- Reload the plugin"
 
   # Check messages
   check:

@@ -20,6 +20,9 @@ public class APIManager {
     }
 
     private void loadServices() {
+        // Clear existing services
+        services.clear();
+
         ConfigurationSection servicesSection = plugin.getConfig().getConfigurationSection("Services");
         if (servicesSection == null) {
             plugin.getLogger().warning("No services section found in config!");
@@ -52,6 +55,12 @@ public class APIManager {
             services.put("IPHub", new IPHub(plugin, key));
             plugin.getLogger().info("Loaded IPHub service");
         }
+    }
+
+    public void reloadServices() {
+        plugin.getLogger().info("Reloading API services...");
+        loadServices();
+        plugin.getLogger().info("API services reloaded successfully");
     }
 
     public CompletableFuture<VPNCheckResult> checkIP(String ip, String playerName) {
