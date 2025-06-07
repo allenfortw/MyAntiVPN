@@ -176,11 +176,11 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     }
 
     private void showServicesStatus(CommandSender sender) {
-        sender.sendMessage(ChatColor.GREEN + "=== 服務狀態 ===");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.header"));
 
         ConfigurationSection servicesSection = plugin.getConfig().getConfigurationSection("Services");
         if (servicesSection == null) {
-            sender.sendMessage(ChatColor.RED + "No services section found in config!");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.no-services"));
             return;
         }
 
@@ -194,11 +194,14 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     private CompletableFuture<Void> checkIPAPIStatus(CommandSender sender, ConfigurationSection servicesSection) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         boolean enabled = servicesSection.getBoolean("IP-API.Enabled", false);
-        sender.sendMessage(ChatColor.AQUA + "IP-API:");
+
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("service", "IP-API");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.service-name", placeholders));
 
         if (!enabled) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "未啟用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "不須使用");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.disabled"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-required"));
             future.complete(null);
             return future;
         }
@@ -215,17 +218,21 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (responseCode == 200) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.GREEN + "可用");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.available"));
                     } else {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (HTTP " + responseCode + ")");
+                        Map<String, String> errorPlaceholders = new HashMap<>();
+                        errorPlaceholders.put("error", "HTTP " + responseCode);
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
                     }
-                    sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "不須使用");
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-required"));
                     future.complete(null);
                 });
             } catch (Exception e) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (" + e.getMessage() + ")");
-                    sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "不須使用");
+                    Map<String, String> errorPlaceholders = new HashMap<>();
+                    errorPlaceholders.put("error", e.getMessage());
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-required"));
                     future.complete(null);
                 });
             }
@@ -239,11 +246,17 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         boolean enabled = servicesSection.getBoolean("ProxyCheck.Enabled", false);
         String key = servicesSection.getString("ProxyCheck.key", "");
 
-        sender.sendMessage(ChatColor.AQUA + "ProxyCheck:");
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("service", "ProxyCheck");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.service-name", placeholders));
 
         if (!enabled) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "未啟用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + (key.isEmpty() ? ChatColor.RED + "未設定" : ChatColor.YELLOW + "已設定"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.disabled"));
+            if (key.isEmpty()) {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
+            } else {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
+            }
             future.complete(null);
             return future;
         }
@@ -265,22 +278,34 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (responseCode == 200) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.GREEN + "可用");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.available"));
+                        if (key.isEmpty()) {
+                            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.free"));
+                        } else {
+                            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.valid"));
+                        }
                     } else {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (HTTP " + responseCode + ")");
-                    }
-
-                    if (key.isEmpty()) {
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "不須使用 (免費版)");
-                    } else {
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.GREEN + "有效");
+                        Map<String, String> errorPlaceholders = new HashMap<>();
+                        errorPlaceholders.put("error", "HTTP " + responseCode);
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                        if (key.isEmpty()) {
+                            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
+                        } else {
+                            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
+                        }
                     }
                     future.complete(null);
                 });
             } catch (Exception e) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (" + e.getMessage() + ")");
-                    sender.sendMessage(ChatColor.GRAY + " 密鑰: " + (key.isEmpty() ? ChatColor.RED + "未設定" : ChatColor.YELLOW + "已設定"));
+                    Map<String, String> errorPlaceholders = new HashMap<>();
+                    errorPlaceholders.put("error", e.getMessage());
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                    if (key.isEmpty()) {
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
+                    } else {
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
+                    }
                     future.complete(null);
                 });
             }
@@ -294,18 +319,24 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         boolean enabled = servicesSection.getBoolean("VPNAPI.Enabled", false);
         String key = servicesSection.getString("VPNAPI.key", "");
 
-        sender.sendMessage(ChatColor.AQUA + "VPNAPI:");
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("service", "VPNAPI");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.service-name", placeholders));
 
         if (!enabled) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "未啟用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + (key.isEmpty() ? ChatColor.RED + "未設定" : ChatColor.YELLOW + "已設定"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.disabled"));
+            if (key.isEmpty()) {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
+            } else {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
+            }
             future.complete(null);
             return future;
         }
 
         if (key.isEmpty()) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.RED + "未設定");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.unavailable"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
             future.complete(null);
             return future;
         }
@@ -322,21 +353,25 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (responseCode == 200) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.GREEN + "可用");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.GREEN + "有效");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.available"));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.valid"));
                     } else if (responseCode == 401) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.RED + "無效");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.unavailable"));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.invalid"));
                     } else {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (HTTP " + responseCode + ")");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "已設定");
+                        Map<String, String> errorPlaceholders = new HashMap<>();
+                        errorPlaceholders.put("error", "HTTP " + responseCode);
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
                     }
                     future.complete(null);
                 });
             } catch (Exception e) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (" + e.getMessage() + ")");
-                    sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "已設定");
+                    Map<String, String> errorPlaceholders = new HashMap<>();
+                    errorPlaceholders.put("error", e.getMessage());
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
                     future.complete(null);
                 });
             }
@@ -350,18 +385,24 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         boolean enabled = servicesSection.getBoolean("IPHub.Enabled", false);
         String key = servicesSection.getString("IPHub.key", "");
 
-        sender.sendMessage(ChatColor.AQUA + "IPHub:");
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("service", "IPHub");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.service-name", placeholders));
 
         if (!enabled) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "未啟用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + (key.isEmpty() ? ChatColor.RED + "未設定" : ChatColor.YELLOW + "已設定"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.disabled"));
+            if (key.isEmpty()) {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
+            } else {
+                sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
+            }
             future.complete(null);
             return future;
         }
 
         if (key.isEmpty()) {
-            sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用");
-            sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.RED + "未設定");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.unavailable"));
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.not-set"));
             future.complete(null);
             return future;
         }
@@ -379,21 +420,25 @@ public class CommandManager implements CommandExecutor, TabCompleter {
 
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (responseCode == 200) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.GREEN + "可用");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.GREEN + "有效");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.available"));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.valid"));
                     } else if (responseCode == 401) {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.RED + "無效");
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.unavailable"));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.invalid"));
                     } else {
-                        sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (HTTP " + responseCode + ")");
-                        sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "已設定");
+                        Map<String, String> errorPlaceholders = new HashMap<>();
+                        errorPlaceholders.put("error", "HTTP " + responseCode);
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                        sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
                     }
                     future.complete(null);
                 });
             } catch (Exception e) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    sender.sendMessage(ChatColor.GRAY + " 狀態: " + ChatColor.RED + "不可用 (" + e.getMessage() + ")");
-                    sender.sendMessage(ChatColor.GRAY + " 密鑰: " + ChatColor.YELLOW + "已設定");
+                    Map<String, String> errorPlaceholders = new HashMap<>();
+                    errorPlaceholders.put("error", e.getMessage());
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.status.error", errorPlaceholders));
+                    sender.sendMessage(plugin.getMessageManager().getMessage("messages.services.key.set"));
                     future.complete(null);
                 });
             }
@@ -403,44 +448,46 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     }
 
     private void reloadPlugin(CommandSender sender) {
-        sender.sendMessage(ChatColor.YELLOW + "正在重新載入 MyAntiVPN...");
+        sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.start"));
 
         try {
             // 1. 關閉資料庫連接
-            sender.sendMessage(ChatColor.GRAY + "關閉資料庫連接...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.database-closing"));
             if (plugin.getDatabaseManager() != null) {
                 plugin.getDatabaseManager().closeConnection();
             }
 
             // 2. 取消所有未完成的任務
-            sender.sendMessage(ChatColor.GRAY + "取消未完成的任務...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.tasks-cancelling"));
             Bukkit.getScheduler().cancelTasks(plugin);
 
             // 3. 重新載入配置檔案
-            sender.sendMessage(ChatColor.GRAY + "重新載入配置檔案...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.config-reloading"));
             plugin.reloadConfig();
 
             // 4. 重新載入訊息檔案
-            sender.sendMessage(ChatColor.GRAY + "重新載入訊息檔案...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.messages-reloading"));
             plugin.getMessageManager().reload();
 
             // 5. 重新初始化資料庫
-            sender.sendMessage(ChatColor.GRAY + "重新初始化資料庫...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.database-initializing"));
             plugin.getDatabaseManager().initDatabase();
 
-            // 6. 重新載入 API 服務 (需要修改 APIManager 來支援重新載入)
-            sender.sendMessage(ChatColor.GRAY + "重新載入 API 服務...");
+            // 6. 重新載入 API 服務
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.api-reloading"));
             // 這裡需要新增重新載入服務的邏輯
 
-            sender.sendMessage(ChatColor.GREEN + "MyAntiVPN 重新載入完成！");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.success"));
 
         } catch (Exception e) {
-            sender.sendMessage(ChatColor.RED + "重新載入過程中發生錯誤: " + e.getMessage());
+            Map<String, String> placeholders = new HashMap<>();
+            placeholders.put("error", e.getMessage());
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.error", placeholders));
             plugin.getLogger().severe("Error during plugin reload: " + e.getMessage());
             e.printStackTrace();
 
             // 強制關閉插件
-            sender.sendMessage(ChatColor.RED + "正在強制關閉插件...");
+            sender.sendMessage(plugin.getMessageManager().getMessage("messages.reload.force-disable"));
             Bukkit.getPluginManager().disablePlugin(plugin);
         }
     }

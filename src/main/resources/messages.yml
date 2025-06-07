@@ -39,3 +39,35 @@ messages:
   status:
     vpn: "&cVPN/Proxy"
     clean: "&aClean"
+
+  # Services messages
+  services:
+    header: "&a=== Services Status ==="
+    no-services: "&cNo services found in configuration!"
+    service-name: "&b%service%:"
+    status:
+      enabled: "&7Status: &aEnabled"
+      disabled: "&7Status: &cDisabled"
+      available: "&7Status: &aAvailable"
+      unavailable: "&7Status: &cUnavailable"
+      error: "&7Status: &cUnavailable (%error%)"
+    key:
+      not-required: "&7Key: &eNot Required"
+      not-set: "&7Key: &cNot Set"
+      set: "&7Key: &eSet"
+      valid: "&7Key: &aValid"
+      invalid: "&7Key: &cInvalid"
+      free: "&7Key: &eNot Required (Free Version)"
+
+  # Reload messages
+  reload:
+    start: "&eReloading MyAntiVPN..."
+    database-closing: "&7Closing database connection..."
+    tasks-cancelling: "&7Cancelling pending tasks..."
+    config-reloading: "&7Reloading configuration files..."
+    messages-reloading: "&7Reloading message files..."
+    database-initializing: "&7Reinitializing database..."
+    api-reloading: "&7Reloading API services..."
+    success: "&aMyAntiVPN reload complete!"
+    error: "&cError occurred during reload: %error%"
+    force-disable: "&cForce disabling plugin..."
