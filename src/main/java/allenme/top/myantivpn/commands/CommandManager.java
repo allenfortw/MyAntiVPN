@@ -19,10 +19,12 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     private final Core plugin;
     private final ServicesCommand servicesCommand;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final BanlistCommand banlistCommand;
 
     public CommandManager(Core plugin) {
         this.plugin = plugin;
         this.servicesCommand = new ServicesCommand(plugin);
+        this.banlistCommand = new BanlistCommand(plugin.getBanManager()); // 在构造函数中初始化
     }
 
     @Override
@@ -38,6 +40,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         switch (args[0].toLowerCase()) {
+            case "ban":
+            case "unban":
+                return banlistCommand.onCommand(sender, command, label, args);
             case "check":
                 if (args.length < 2) {
                     sender.sendMessage(ChatColor.RED + "Usage: /antivpn check <player_name> [service1,service2,...]");
@@ -75,8 +80,12 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 1) {
-            List<String> commands = Arrays.asList("check", "logs", "services", "reload");
+            List<String> commands = Arrays.asList("check", "logs", "services", "reload", "ban", "unban");
             return filterStartsWith(commands, args[0]);
+        }
+
+        if (args[0].equalsIgnoreCase("ban") || args[0].equalsIgnoreCase("unban")) {
+            return banlistCommand.onTabComplete(sender, command, alias, args);
         }
 
         if (args.length == 2 && (args[0].equalsIgnoreCase("check") || args[0].equalsIgnoreCase("logs"))) {
@@ -106,6 +115,8 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.help-command"));
         sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.check-command"));
         sender.sendMessage(plugin.getMessageManager().getMessage("messages.help.logs-command"));
+        sender.sendMessage(ChatColor.GOLD + "/antivpn ban <type> <value> " + ChatColor.WHITE + "- Ban an IP, ISP, or ASN");
+        sender.sendMessage(ChatColor.GOLD + "/antivpn unban [type] [value] " + ChatColor.WHITE + "- List bans or unban an entry");
         sender.sendMessage(ChatColor.GOLD + "/antivpn services " + ChatColor.WHITE + "- Show all services status");
         sender.sendMessage(ChatColor.GOLD + "/antivpn reload " + ChatColor.WHITE + "- Reload the plugin");
     }

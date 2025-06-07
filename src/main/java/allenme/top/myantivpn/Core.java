@@ -1,5 +1,8 @@
 package allenme.top.myantivpn;
 
+import allenme.top.myantivpn.banservice.BanServiceManager;
+import allenme.top.myantivpn.banservice.PlayerChecker;
+import allenme.top.myantivpn.commands.BanlistCommand;
 import allenme.top.myantivpn.commands.CommandManager;
 import allenme.top.myantivpn.listener.PlayerLoginListener;
 import allenme.top.myantivpn.apicheck.APIManager;
@@ -18,6 +21,8 @@ public class Core extends JavaPlugin {
     private DatabaseManager databaseManager;
     private FileConfiguration config;
     private MessageManager messageManager;
+    private BanServiceManager banManager;
+    private PlayerChecker playerChecker;
 
     @Override
     public void onEnable() {
@@ -30,9 +35,11 @@ public class Core extends JavaPlugin {
         // Initialize database
         initDatabase();
 
-        // Initialize API Manager
-        apiManager = new APIManager(this);
+        // Initialize managers
+        this.apiManager = new APIManager(this);
         this.messageManager = new MessageManager(this);
+        this.banManager = new BanServiceManager(getDataFolder());
+        this.playerChecker = new PlayerChecker(banManager, getConfig());
 
         // Register commands
         getCommand("antivpn").setExecutor(new CommandManager(this));
@@ -42,7 +49,6 @@ public class Core extends JavaPlugin {
 
         getLogger().info("MyAntiVPN has been enabled!");
     }
-
     @Override
     public void onDisable() {
         // Close database connections
@@ -77,6 +83,14 @@ public class Core extends JavaPlugin {
     }
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public BanServiceManager getBanManager() {
+        return banManager;
+    }
+
+    public PlayerChecker getPlayerChecker() {
+        return playerChecker;
     }
 
     public void executeVPNDetectedCommand(String playerName) {
