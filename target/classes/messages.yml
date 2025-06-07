@@ -58,7 +58,7 @@ messages:
       valid: "&7Key: &aValid"
       invalid: "&7Key: &cInvalid"
       free: "&7Key: &eNot Required (Free Version)"
-
+      required: "&7Key: &cRequired"
   # Reload messages
   reload:
     start: "&eReloading MyAntiVPN..."
